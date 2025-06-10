@@ -1,47 +1,42 @@
-import { useState } from 'react';
+import { OpenAI } from "openai";
+import fs from "fs";
+import path from "path";
+import pdfParse from "pdf-parse";
 
-export default function Home() {
-  const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hola, soy tu asistente de tenis. Pregúntame sobre torneos, reglamentos o rankings FET, COSAT o ITF." }
-  ]);
-  const [input, setInput] = useState("");
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
-    const newMessages = [...messages, { role: "user", content: input }];
-    setMessages(newMessages);
-    setInput("");
+const loadPdfText = async (filename) => {
+  const pdfPath = path.resolve(process.cwd(), "public/docs", filename);
+  const buffer = fs.readFileSync(pdfPath);
+  const data = await pdfParse(buffer);
+  return data.text;
+};
 
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: newMessages })
+export default async function handler(req, res) {
+  const { messages } = req.body;
+
+  try {
+    // Carga los textos de los PDFs que hayas subido previamente
+    const fetText = await loadPdfText("Reglamento_2025_FET_compressed.pdf");
+    const rankingText = await loadPdfText("QUINTO_RANK_14VARONES_2025.pdf");
+
+    // Combina el contenido en un solo "contexto"
+    const context = `REGLAMENTO FET:\n${fetText}\n\nRANKING NACIONAL 14A:\n${rankingText}`;
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: `Eres un asistente experto en tenis ecuatoriano. Responde basándote únicamente en el siguiente contexto:\n\n${context}`
+        },
+        ...messages
+      ]
     });
-    const data = await response.json();
-    setMessages([...newMessages, { role: "assistant", content: data.reply }]);
-  };
 
-  return (
-    <div style={{ maxWidth: 700, margin: 'auto', padding: 20 }}>
-      <h1>🎾 Asistente Tenis Ecuador</h1>
-      <div style={{ maxHeight: 400, overflowY: 'auto', marginBottom: 10 }}>
-        {messages.map((msg, idx) => (
-          <div key={idx} style={{ textAlign: msg.role === 'user' ? 'right' : 'left' }}>
-            <p>{msg.content}</p>
-          </div>
-        ))}
-      </div>
-      <div style={{ display: 'flex', gap: 8 }}>
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder="Escribe tu pregunta aquí..."
-          style={{ flex: 1 }}
-        />
-        <button onClick={handleSend}>Enviar</button>
-      </div>
-    </div>
-  );
+    res.status(200).json({ reply: completion.choices[0].message.content });
+  } catch (error) {
+    console.error("Error en /api/chat:", error);
+    res.status(500).json({ reply: "Hubo un error procesando tu pregunta. Intenta nuevamente más tarde." });
+  }
 }
-
