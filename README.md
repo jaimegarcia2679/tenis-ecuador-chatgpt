@@ -1,12 +1,13 @@
+# 🧠 Tenis Ecuador ChatGPT
 
-# Tenis Ecuador ChatGPT
+Una app conversacional personalizada para el circuito de tenis juvenil en Ecuador, que responde preguntas usando archivos reales como reglamentos FET y rankings nacionales.
 
-### 🚀 Instrucciones para desplegar en Vercel:
+## 🚀 ¿Qué hace esta app?
+- Responde preguntas sobre el **Reglamento FET 2025**
+- Consulta el **ranking nacional de 14 años varones**
+- Todo basado en documentos PDF que tú puedes actualizar
 
-1. Entra a [https://vercel.com/dashboard](https://vercel.com/dashboard)
-2. Crea un nuevo proyecto y selecciona “Importar proyecto”.
-3. Sube este zip a GitHub o usa la opción “Arrastrar carpeta” si usas Vercel CLI.
-4. En “Environment Variables”, añade:
-   - `OPENAI_API_KEY` = tu clave de OpenAI
+---
 
-5. ¡Publica y listo!
+## 📁 Estructura del Proyecto
+
