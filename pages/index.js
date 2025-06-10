@@ -57,11 +57,11 @@ export default function Home() {
           </li>
           <li>
             <a
-              href="https://cotecc.tournamentsoftware.com/tournament"
+              href="https://cotecc.tournamentsoftware.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Torneos ITF (Software)
+              Torneos Centroamerica (Software)
             </a>
           </li>
           <li>
