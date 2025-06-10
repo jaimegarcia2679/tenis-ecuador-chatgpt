@@ -1,9 +1,12 @@
-
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function Home() {
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hola, soy tu asistente de tenis. Pregúntame sobre torneos, reglamentos o rankings FET, COSAT o ITF." }
+    {
+      role: "assistant",
+      content:
+        "Hola, soy tu asistente de tenis. Pregúntame sobre torneos, reglamentos o rankings FET, COSAT o ITF."
+    }
   ]);
   const [input, setInput] = useState("");
 
@@ -23,20 +26,65 @@ export default function Home() {
   };
 
   return (
-    <div style={{ maxWidth: 700, margin: 'auto', padding: 20 }}>
+    <div style={{ maxWidth: 800, margin: "auto", padding: 20 }}>
       <h1>🎾 Asistente Tenis Ecuador</h1>
-      <div style={{ maxHeight: 400, overflowY: 'auto', marginBottom: 10 }}>
+
+      <p>
+        Hola, soy tu asistente de tenis. Pregúntame sobre torneos, reglamentos o rankings FET, COSAT o ITF.
+      </p>
+
+      <div style={{ margin: "20px 0" }}>
+        <h3>🔗 Enlaces útiles:</h3>
+        <ul>
+          <li>
+            <a href="https://fet.org.ec" target="_blank" rel="noopener noreferrer">
+              Sitio oficial FET
+            </a>
+          </li>
+          <li>
+            <a href="https://cosat.org" target="_blank" rel="noopener noreferrer">
+              Sitio oficial COSAT
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://cosat.tournamentsoftware.com/tournament"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Torneos COSAT (Software)
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://cotecc.tournamentsoftware.com/tournament"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Torneos ITF (Software)
+            </a>
+          </li>
+          <li>
+            <a href="https://www.itftennis.com/en/tournament-calendar/" target="_blank" rel="noopener noreferrer">
+              Calendario ITF oficial
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div style={{ maxHeight: 400, overflowY: "auto", marginBottom: 10 }}>
         {messages.map((msg, idx) => (
-          <div key={idx} style={{ textAlign: msg.role === 'user' ? 'right' : 'left' }}>
+          <div key={idx} style={{ textAlign: msg.role === "user" ? "right" : "left" }}>
             <p>{msg.content}</p>
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', gap: 8 }}>
+
+      <div style={{ display: "flex", gap: 8 }}>
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder="Escribe tu pregunta aquí..."
           style={{ flex: 1 }}
         />
