@@ -1,4 +1,3 @@
-
 import { OpenAI } from "openai";
 import fs from "fs";
 import path from "path";
@@ -7,10 +6,18 @@ import pdfParse from "pdf-parse";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const loadPdfText = async (filename) => {
-  const pdfPath = path.resolve(process.cwd(), "public/docs", filename);
-  const buffer = fs.readFileSync(pdfPath);
-  const data = await pdfParse(buffer);
-  return data.text;
+  try {
+    const pdfPath = path.resolve(process.cwd(), "public/docs", filename);
+    if (!fs.existsSync(pdfPath)) {
+      throw new Error(`Archivo no encontrado: ${filename}`);
+    }
+    const buffer = fs.readFileSync(pdfPath);
+    const data = await pdfParse(buffer);
+    return data.text;
+  } catch (e) {
+    console.error("Error al cargar PDF:", e.message);
+    return "";
+  }
 };
 
 export default async function handler(req, res) {
@@ -35,7 +42,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ reply: completion.choices[0].message.content });
   } catch (error) {
-    console.error("Error en /api/chat:", error);
+    console.error("Error en /api/chat:", error.message);
     res.status(500).json({ reply: "Hubo un error procesando tu pregunta. Intenta nuevamente más tarde." });
   }
 }
