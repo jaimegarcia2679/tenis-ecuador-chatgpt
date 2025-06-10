@@ -1,18 +1,16 @@
 
-# Tenis Ecuador ChatGPT
+# Tenis Ecuador ChatGPT (.txt version)
 
-Asistente conversacional para el circuito juvenil de tenis en Ecuador. Lee reglamentos y rankings desde PDFs.
+Asistente que responde preguntas basadas en reglamentos y rankings extraídos desde archivos .txt.
 
-## 📁 Cómo actualizar documentos
+## 🧠 Instrucciones
 
-1. Reemplaza archivos PDF en `/public/docs/`:
-   - `Reglamento_2025_FET_compressed.pdf`
-   - `QUINTO_RANK_14VARONES_2025.pdf`
+1. Coloca tus archivos `.txt` dentro de `/public/docs/` con nombres:
+   - `Reglamento_2025_FET.txt`
+   - `Ranking_14A_2025.txt`
 
-2. Haz commit en GitHub.
-3. Haz redeploy en Vercel.
+2. Haz commit y redeploy en Vercel.
 
-## 🧠 ¿Qué puedes preguntar?
-
-- “¿Qué dice el artículo 60 del reglamento?”
-- “¿Quién está primero en el ranking nacional?”
+3. Pregunta cosas como:
+   - “¿Qué dice el artículo 60 del reglamento FET?”
+   - “¿Quién lidera el ranking de 14 años?”
