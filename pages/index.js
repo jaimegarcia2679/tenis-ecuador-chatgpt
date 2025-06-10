@@ -47,26 +47,49 @@ export default function Home() {
             </a>
           </li>
           <li>
-            <a
-              href="https://cosat.tournamentsoftware.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://cosat.tournamentsoftware.com" target="_blank" rel="noopener noreferrer">
               Torneos COSAT (Software)
             </a>
           </li>
           <li>
-            <a
-              href="https://cotecc.tournamentsoftware.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://cotecc.tournamentsoftware.com" target="_blank" rel="noopener noreferrer">
               Torneos Centroamerica (Software)
             </a>
           </li>
           <li>
             <a href="https://www.itftennis.com/en/tournament-calendar/" target="_blank" rel="noopener noreferrer">
               Calendario ITF oficial
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div style={{ margin: "20px 0" }}>
+        <h3>📂 Archivos de su interés:</h3>
+        <ul>
+          <li>
+            <a href="/docs/Reglamento_2025_FET_compressed.pdf" download>
+              📄 Documentos (Reglamento FET PDF)
+            </a>
+          </li>
+          <li>
+            <a href="/docs/Ranking_14A_2025.txt" download>
+              📊 Ranking Nacional TXT
+            </a>
+          </li>
+          <li>
+            <a href="/docs/foto_ejemplo.jpg" download>
+              🖼️ Fotos
+            </a>
+          </li>
+          <li>
+            <a href="/docs/video_ejemplo.mp4" download>
+              🎥 Videos
+            </a>
+          </li>
+          <li>
+            <a href="/docs/otros.zip" download>
+              📁 Varios (ZIP u otros formatos)
             </a>
           </li>
         </ul>
@@ -93,3 +116,4 @@ export default function Home() {
     </div>
   );
 }
+
