@@ -1,21 +1,19 @@
+
 import { OpenAI } from "openai";
 import fs from "fs";
 import path from "path";
-import pdfParse from "pdf-parse";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-const loadPdfText = async (filename) => {
+const loadTextFile = (filename) => {
   try {
-    const pdfPath = path.resolve(process.cwd(), "public/docs", filename);
-    if (!fs.existsSync(pdfPath)) {
+    const filePath = path.resolve(process.cwd(), "public/docs", filename);
+    if (!fs.existsSync(filePath)) {
       throw new Error(`Archivo no encontrado: ${filename}`);
     }
-    const buffer = fs.readFileSync(pdfPath);
-    const data = await pdfParse(buffer);
-    return data.text;
+    return fs.readFileSync(filePath, "utf8");
   } catch (e) {
-    console.error("Error al cargar PDF:", e.message);
+    console.error("Error al leer archivo .txt:", e.message);
     return "";
   }
 };
@@ -24,8 +22,8 @@ export default async function handler(req, res) {
   const { messages } = req.body;
 
   try {
-    const fetText = await loadPdfText("Reglamento_2025_FET_compressed.pdf");
-    const rankingText = await loadPdfText("QUINTO_RANK_14VARONES_2025.pdf");
+    const fetText = loadTextFile("Reglamento_2025_FET.txt");
+    const rankingText = loadTextFile("Ranking_14A_2025.txt");
 
     const context = `REGLAMENTO FET:\n${fetText}\n\nRANKING NACIONAL 14A:\n${rankingText}`;
 
