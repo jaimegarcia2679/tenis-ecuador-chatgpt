@@ -22,8 +22,9 @@ export default async function handler(req, res) {
   const { messages } = req.body;
 
   try {
-    const fetText = loadTextFile("Reglamento_2025_FET.txt");
-    const rankingText = loadTextFile("Ranking_14A_2025.txt");
+    const fetText = loadTextFile("Reglamento_2025_FET.txt").slice(0, 4000);
+    const rankingText = loadTextFile("Ranking_14A_2025.txt").slice(0, 4000);
+
 
     const context = `REGLAMENTO FET:\n${fetText}\n\nRANKING NACIONAL 14A:\n${rankingText}`;
 
